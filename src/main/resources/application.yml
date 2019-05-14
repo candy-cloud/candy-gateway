@@ -1,0 +1,26 @@
+eureka:
+  client:
+    service-url:
+#      defaultZone: http://eureka1:8761/eureka/,http://eureka2:8762/eureka/,http://eureka3:8763/eureka/
+      defaultZone: http://10.15.0.132:7010/eureka/,http://10.15.0.134:7010/eureka/,http://10.15.0.135:7010/eureka/
+server:
+  port: 5000
+spring:
+  application:
+    name: fintech-gateway
+zuul:
+  routes:
+    bossrpc:
+      path: /ifbp-boss-rpc/**
+      service-id: ifbp-boss-rpc
+  host:
+    connect-timeout-millis: 15000 #HTTP连接超时要比Hystrix的大
+    socket-timeout-millis: 60000   #socket超时
+  debug:
+    request: true
+  strip-prefix: false
+logging:
+  file: logs/application-gatewayservice-${server.port}.logs
+ribbon:
+  ReadTimeout: 10000
+  ConnectTimeout: 10000
